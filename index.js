@@ -7,10 +7,7 @@ export default class vr_trading extends React.Component {
     return (
       <View style={styles.panel}>
         <View style={styles.greetingBox}>
-          <Text style={styles.greeting}> Welcome to React 360 World !! </Text>
-        </View>
-        <View style={styles.greetingBox}>
-          <Message style={styles.greeting}></Message>
+          <Text style={styles.greeting}> Welcome to VR Trading </Text>
         </View>
       </View>
     );
@@ -24,7 +21,7 @@ const styles = StyleSheet.create({
     height: 600,
     backgroundColor: "rgba(255, 255, 255, 0.4)",
     justifyContent: "space-around",
-    alignItems: "stretch"
+    alignItems: "center"
   },
   greetingBox: {
     padding: 20,
