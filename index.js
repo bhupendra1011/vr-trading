@@ -1,14 +1,36 @@
 import React from "react";
 import Message from "./components/Message";
-import { AppRegistry, StyleSheet, Text, View } from "react-360";
+import { AppRegistry, StyleSheet, Text, View, VrButton } from "react-360";
 
 export default class vr_trading extends React.Component {
+
+  state = {
+    activeStock: "NA",
+    accountBalance: 10000
+  }
+
+  handleStockSelection(stockId) {
+    this.setState({
+      activeStock: stockId
+    })
+
+  }
+
   render() {
     return (
       <View style={styles.panel}>
-        <View style={styles.greetingBox}>
-          <Text style={styles.greeting}> Welcome to VR Trading </Text>
+        <View style={styles.panelBox}>
+          <Text style={styles.greeting}> Top Winners </Text>
+          <VrButton onClick={() => this.handleStockSelection('INFY')}><View style={[styles.stockBox, styles.alignCenter, styles.gainers]}><Text > INFY </Text><Text > 10% </Text></View></VrButton>
         </View>
+
+        <View ><Text>Selected Stock: 👉👉{this.state.activeStock}</Text></View>
+
+        <View style={styles.panelBox}>
+          <Text> Top Losers </Text>
+          <VrButton onClick={() => this.handleStockSelection('TCS')}><View style={[styles.stockBox, styles.alignCenter, styles.losers]}><Text > TCS </Text><Text > -10% </Text></View></VrButton>
+        </View>
+
       </View>
     );
   }
@@ -20,19 +42,41 @@ const styles = StyleSheet.create({
     width: 1000,
     height: 600,
     backgroundColor: "rgba(255, 255, 255, 0.4)",
-    justifyContent: "space-around",
-    alignItems: "center"
+    flexDirection: "row",
+    justifyContent: "space-between",
+
   },
-  greetingBox: {
+
+  panelBox: {
     padding: 20,
-    backgroundColor: "#000000",
+    backgroundColor: "#5373a3",
     borderColor: "#639dda",
     borderWidth: 2
   },
+  alignCenter: {
+    display: "flex",
+    justifyContent: 'center',
+    alignItems: 'center'
+
+  },
+  stockBox: {
+    width: 80,
+    height: 80,
+
+
+  },
   greeting: {
     fontSize: 20,
-    color: "red"
+
+
+  },
+  gainers: {
+    backgroundColor: "#509d0a",
+  },
+  losers: {
+    backgroundColor: "#d22222f7"
   }
+
 });
 
 AppRegistry.registerComponent("vr_trading", () => vr_trading);
