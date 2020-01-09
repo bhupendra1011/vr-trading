@@ -4,7 +4,8 @@ import { AppRegistry, StyleSheet, Text, View, VrButton } from "react-360";
 export default class StockCard extends React.Component {
     
     symbol =  this.props.exchange ? `${this.props.exchange}:${this.props.symbol}`: this.props.symbol;
-    
+    apiKey1 = 'FVKV400PBKCNFBZR';
+    apiKey2 = 'YX4YAD802OGS4WIL'; // this is getting used only once hence can be used further
     state = {
         previousClose: 0,
         currentPrice: 0
@@ -32,7 +33,7 @@ export default class StockCard extends React.Component {
     }
 
     updateCurrentPrice () {
-        fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${this.symbol}&interval=1min&apikey=YX4YAD802OGS4WIL`)
+        fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${this.symbol}&interval=1min&apikey=${this.apiKey1}`)
         .then(results => results.json())
             .then((data) => {
                 let series = data["Time Series (1min)"];
@@ -70,7 +71,7 @@ export default class StockCard extends React.Component {
 
     fetchData () {
         
-        fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${this.symbol}&interval=1min&apikey=YX4YAD802OGS4WIL`)
+        fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=${this.symbol}&interval=1min&apikey=${this.apiKey2}`)
         .then(results => results.json())
             .then((data) => {
                 let series = data["Time Series (Daily)"];

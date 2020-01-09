@@ -37,13 +37,9 @@ export default class vr_trading extends React.Component {
 				</View>
 
 				<View style={styles.panelBox}>
-					<Text> Top Losers </Text>
-					<VrButton onClick={() => this.handleStockSelection("TCS")}>
-						<View style={[styles.stockBox, styles.alignCenter, styles.losers]}>
-							<Text> TCS </Text>
-							<Text> -10% </Text>
-						</View>
-					</VrButton>
+          <Text> BANK Stocks </Text>
+          <StockCard symbol="SBIN" exchange="NSE"/>
+          <StockCard symbol="YESBANK" exchange="NSE"/>
 				</View>
 			</View>
 		);
