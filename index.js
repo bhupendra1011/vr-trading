@@ -10,14 +10,13 @@ import NewsPanel from "./components/NewsPanel";
 
 export default class vr_trading extends React.Component {
 	state = {
-		activeStock: "NA",
-		accountBalance: 10000
+		activeStock: "",
+		accountBalance: 10000,
+    activeStockData: null
 	};
 
-	handleStockSelection(stockId) {
-		this.setState({
-			activeStock: stockId
-		});
+	handleStockSelection(state) {
+		this.setState(state);
 	}
 
 	render() {
@@ -25,21 +24,23 @@ export default class vr_trading extends React.Component {
 			<View style={styles.panel}>
 				<View style={styles.panelBox}>
 					<Text style={styles.greeting}> IT Stocks </Text>
-					<StockCard symbol='INFY' exchange='NSE' />
-					<StockCard symbol='TCS' exchange='NSE' />
+            <StockCard symbol='INFY' exchange='NSE' handleStockSelection={this.handleStockSelection.bind(this)} />
+        
+            <StockCard symbol='TCS' exchange='NSE' handleStockSelection={this.handleStockSelection.bind(this)} />
+         
 				</View>
 
 				<View>
 					<Text>Selected Stock: {this.state.activeStock}</Text>
-					<View>
-						<StocksChart />
+					<View style={this.state.activeStock ? styles.show : styles.hide}>
+						<StocksChart data={this.state.activeStockData} />
 					</View>
 				</View>
 
 				<View style={styles.panelBox}>
           <Text> BANK Stocks </Text>
-          <StockCard symbol="SBIN" exchange="NSE"/>
-          <StockCard symbol="YESBANK" exchange="NSE"/>
+          <StockCard symbol="SBIN" exchange="NSE" handleStockSelection={this.handleStockSelection.bind(this)} />
+          <StockCard symbol="YESBANK" exchange="NSE" handleStockSelection={this.handleStockSelection.bind(this)} />
 				</View>
 			</View>
 		);
@@ -81,7 +82,13 @@ const styles = StyleSheet.create({
 	},
 	losers: {
 		backgroundColor: "#d22222f7"
-	}
+  },
+  hide: {
+    opacity: 0
+  },
+  show: {
+    opacity: 1
+  }
 });
 
 AppRegistry.registerComponent("vr_trading", () => vr_trading);

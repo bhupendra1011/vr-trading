@@ -16,15 +16,14 @@ export default class StocksChart extends React.Component {
 		close: "",
 		high: "",
 		low: "",
-		volume: "",
-		seriesData: []
+		volume: ""
 	};
 
-	componentDidMount() {
-		fetch("http://api.myjson.com/bins/11uqom")
-			.then(response => response.json())
-			.then(data => {
-				console.log(data);
+	componentDidUpdate() {
+		
+		let data = this.props.data;
+		if(!data) return;
+		//console.log(data);
 				const timeSeries = data["Time Series (1min)"];
 				const metaData = data["Meta Data"];
 				const keys = Object.keys(timeSeries);
@@ -33,14 +32,17 @@ export default class StocksChart extends React.Component {
 				console.log(metaData);
 				this.setState({
 					symbol: metaData["2. Symbol"],
-					seriesData: timeSeries,
 					open: Number(latestData["1. open"]).toFixed(2),
 					close: Number(latestData["4. close"]).toFixed(2),
 					high: Number(latestData["2. high"]).toFixed(2),
 					low: Number(latestData["3. low"]).toFixed(2),
 					volume: Number(latestData["5. volume"]).toFixed(2)
 				});
-			});
+		// fetch("http://api.myjson.com/bins/11uqom")
+		// 	.then(response => response.json())
+		// 	.then(data => {
+				
+		// 	});
 	}
 	render() {
 		return (
