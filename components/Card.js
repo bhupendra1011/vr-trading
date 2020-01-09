@@ -28,28 +28,16 @@ export default class StockCard extends React.Component {
         this.timerId = setInterval(() => this.updateCurrentPrice(), 60000);
     }
 
-    changeBackground () {
-        const card = this.refs.card;
-        this.state.currentPrice > this.state.previousClose ?
-            card.classList.add('positive') : card.classList.add('negative');
-    }
-
     updateCurrentPrice () {
         fetch(`https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${this.symbol}&interval=1min&apikey=${this.apiKey1}`)
         .then(results => results.json())
             .then((data) => {
+                console.log(`Updating ${this.symbol} price`);
                 let series = data["Time Series (1min)"];
+                const keys = Object.keys(series);
                 let todayPrice;
                 if(series) {
-                    let counter = 0;
-                    for (var key in series) {
-                        if(counter > 0){
-                            break;
-                        } else {
-                            todayPrice = Number.parseFloat(series[key]["1. open"], 10);
-                        }
-                        counter++;
-                    }
+                    todayPrice = Number.parseFloat(series[keys[0]]["1. open"], 10);
                     this.currentPriceCache.push(todayPrice);
                     this.stockDataCache.push(data); 
         
@@ -66,8 +54,6 @@ export default class StockCard extends React.Component {
                 }
                 if(todayPrice) {
                     this.setState({ currentPrice: todayPrice, stockData: data });
-                    //this.changeBackground();
-                    //if(this.timerId)clearTimeout(this.timerId);
                 }
                 !this.timerId && this.setTimer();
             });
@@ -79,24 +65,12 @@ export default class StockCard extends React.Component {
         .then(results => results.json())
             .then((data) => {
                 let series = data["Time Series (Daily)"];
-                let counter = 0;
-                let previousClose;
-                for (var key in series) {
-                    if(counter > 1){
-                        break;
-                    } else if (counter === 1){
-                        previousClose = Number.parseFloat(series[key]["4. close"], 10);
-                    }
-                    counter++;
-                }
+                const keys = Object.keys(series);
+                let previousClose = Number.parseFloat(series[keys[1]]["4. close"], 10);
                 this.setState({ previousClose: previousClose });
                 this.updateCurrentPrice ();
                 
             });
-    }
-
-    handleStockSelection (symbol) {
-        console.log(symbol);
     }
 
     render () {
