@@ -19,7 +19,7 @@ function init(bundle, parent, options = {}) {
 
 	stocksPanel.setAngle(-1.2 /* yaw angle */, 0.1 /* pitch angle */);
 
-	const infoPanel = new Surface(400, 550, Surface.SurfaceShape.Flat);
+	const infoPanel = new Surface(350, 550, Surface.SurfaceShape.Flat);
 
 	infoPanel.setAngle(1, 0.1);
 
