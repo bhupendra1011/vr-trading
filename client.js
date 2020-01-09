@@ -15,9 +15,9 @@ function init(bundle, parent, options = {}) {
 
 	// creating panel for listing walls
 
-	const stocksPanel = new Surface(400, 550, Surface.SurfaceShape.Flat);
+	const stocksPanel = new Surface(350, 550, Surface.SurfaceShape.Flat);
 
-	stocksPanel.setAngle(-1, 0.1);
+	stocksPanel.setAngle(-1.2 /* yaw angle */, 0.1 /* pitch angle */);
 
 	const infoPanel = new Surface(400, 550, Surface.SurfaceShape.Flat);
 
