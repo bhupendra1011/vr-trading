@@ -23,6 +23,9 @@ function init(bundle, parent, options = {}) {
 
 	infoPanel.setAngle(1, 0.1);
 
+	const newsPanel = new Surface(600, 550, Surface.SurfaceShape.Flat);
+	newsPanel.setAngle(1.8, 0.1);
+
 	// this is the left panel
 
 	r360.renderToSurface(
@@ -38,6 +41,14 @@ function init(bundle, parent, options = {}) {
 			/* initial props */
 		}),
 		infoPanel
+	);
+
+	// this is the news panel
+	r360.renderToSurface(
+		r360.createRoot("NewsPanel", {
+			/* initial props */
+		}),
+		newsPanel
 	);
 
 	//this is the default cylindrical panel , which is always at center

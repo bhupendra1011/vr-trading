@@ -6,6 +6,7 @@ import StockCard from "./components/Card";
 import StocksPanel from "./components/StocksPanel";
 import InfoPanel from "./components/InfoPanel";
 import StocksChart from "./components/graph";
+import NewsPanel from "./components/NewsPanel";
 
 export default class vr_trading extends React.Component {
 	state = {
@@ -90,3 +91,4 @@ const styles = StyleSheet.create({
 AppRegistry.registerComponent("vr_trading", () => vr_trading);
 AppRegistry.registerComponent("StocksPanel", () => StocksPanel);
 AppRegistry.registerComponent("InfoPanel", () => InfoPanel);
+AppRegistry.registerComponent("NewsPanel", () => NewsPanel);
