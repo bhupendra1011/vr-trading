@@ -12,14 +12,15 @@ import {
 export default class InfoPanel extends React.Component {
   state = {};
 
-  handleStockSelection() {}
+  componentDidMount() {}
 
   render() {
     return (
       <View style={styles.panel}>
-        <View style={styles.greetingBox}>
-          <Text style={{ textAlign: "center" }}>Info</Text>
-        </View>
+        <Text style={{ textAlign: "center", fontWeight: "bold" }}>
+          MARKET BUZZ
+        </Text>
+        <View style={styles.greetingBox}></View>
       </View>
     );
   }
@@ -28,22 +29,35 @@ export default class InfoPanel extends React.Component {
 const styles = StyleSheet.create({
   panel: {
     // Fill the entire surface
-    width: 1000,
-    height: 600,
-    backgroundColor: "rgba(255, 255, 255, 0.4)",
-    flexDirection: "row",
-    justifyContent: "space-between"
+    width: 350,
+    height: 550,
+    backgroundColor: "rgba(255, 255, 255, 0.4)"
   },
   greetingBox: {
-    padding: 20,
+    width: 350,
     backgroundColor: "#000000",
     borderColor: "#639dda",
     borderWidth: 2,
-    width: "50%"
+
+    flex: 1,
+    flexWrap: "wrap",
+    flexDirection: "row",
+    justifyContent: "space-between"
+  },
+  gainers: {
+    backgroundColor: "#0955a2db"
+  },
+  losers: {
+    backgroundColor: "#d22222f7"
   },
   alignCenter: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center"
+  },
+  stockBox: {
+    width: 80,
+    height: 80,
+    margin: 10
   }
 });
