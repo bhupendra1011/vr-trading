@@ -21,7 +21,7 @@ export default class vr_trading extends React.Component {
     return (
       <View style={styles.panel}>
         <View style={styles.panelBox}>
-          <Text style={styles.greeting}> Top Winners </Text>
+          <Text style={styles.greeting}> IT Stocks </Text>
           <StockCard symbol="INFY" exchange="NSE"/>
           <StockCard symbol="TCS" exchange="NSE"/>
         </View>
