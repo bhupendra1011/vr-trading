@@ -1,6 +1,7 @@
 import React from "react";
 import Message from "./components/Message";
 import { AppRegistry, StyleSheet, Text, View, VrButton } from "react-360";
+import StockCard from "./components/Card";
 
 export default class vr_trading extends React.Component {
 
@@ -21,10 +22,11 @@ export default class vr_trading extends React.Component {
       <View style={styles.panel}>
         <View style={styles.panelBox}>
           <Text style={styles.greeting}> Top Winners </Text>
-          <VrButton onClick={() => this.handleStockSelection('INFY')}><View style={[styles.stockBox, styles.alignCenter, styles.gainers]}><Text > INFY </Text><Text > 10% </Text></View></VrButton>
+          <StockCard symbol="INFY" exchange="NSE"/>
+          <StockCard symbol="TCS" exchange="NSE"/>
         </View>
 
-        <View ><Text>Selected Stock: 👉👉{this.state.activeStock}</Text></View>
+        <View ><Text>Selected Stock: {this.state.activeStock}</Text></View>
 
         <View style={styles.panelBox}>
           <Text> Top Losers </Text>
