@@ -1,28 +1,55 @@
 // This file contains the boilerplate to execute your React app.
 // If you want to modify your application's content, start in "index.js"
 
-import { ReactInstance } from "react-360-web";
+import { ReactInstance, Surface } from "react-360-web";
 // added for view in mobile / cardboard
 import WebVRPolyfill from "webvr-polyfill";
 const polyfill = new WebVRPolyfill();
 
 function init(bundle, parent, options = {}) {
-  const r360 = new ReactInstance(bundle, parent, {
-    // Add custom options here
-    fullScreen: true,
-    ...options
-  });
+	const r360 = new ReactInstance(bundle, parent, {
+		// Add custom options here
+		fullScreen: true,
+		...options
+	});
 
-  // Render your app content to the default cylinder surface
-  r360.renderToSurface(
-    r360.createRoot("vr_trading", {
-      /* initial props */
-    }),
-    r360.getDefaultSurface()
-  );
+	// creating panel for listing walls
 
-  // Load the initial environment
-  r360.compositor.setBackground(r360.getAssetURL("360_office2.jpg"));
+	const stocksPanel = new Surface(400, 550, Surface.SurfaceShape.Flat);
+
+	stocksPanel.setAngle(-1, 0.1);
+
+	const infoPanel = new Surface(400, 550, Surface.SurfaceShape.Flat);
+
+	infoPanel.setAngle(1, 0.1);
+
+	// this is the left panel
+
+	r360.renderToSurface(
+		r360.createRoot("StocksPanel", {
+			/* initial props */
+		}),
+		stocksPanel
+	);
+
+	// this is the right panel
+	r360.renderToSurface(
+		r360.createRoot("InfoPanel", {
+			/* initial props */
+		}),
+		infoPanel
+	);
+
+	//this is the default cylindrical panel , which is always at center
+	r360.renderToSurface(
+		r360.createRoot("vr_trading", {
+			/* initial props */
+		}),
+		r360.getDefaultSurface()
+	);
+
+	// Load the initial environment
+	r360.compositor.setBackground(r360.getAssetURL("360_office2.jpg"));
 }
 
 window.React360 = { init };
