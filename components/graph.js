@@ -24,13 +24,11 @@ export default class StocksChart extends React.Component {
 		fetch("http://api.myjson.com/bins/11uqom")
 			.then(response => response.json())
 			.then(data => {
-				console.log(data);
 				const timeSeries = data["Time Series (1min)"];
 				const metaData = data["Meta Data"];
 				const keys = Object.keys(timeSeries);
 				const latestData = timeSeries[keys[[keys.length - 1]]];
-				console.log(latestData);
-				console.log(metaData);
+
 				this.setState({
 					symbol: metaData["2. Symbol"],
 					seriesData: timeSeries,
