@@ -20,9 +20,8 @@ export default class StocksChart extends React.Component {
 	};
 
 	componentDidMount() {
-		
 		let data = this.props.data;
-		if(!data) return;
+		if (!data) return;
 		const timeSeries = data["Time Series (1min)"];
 		const metaData = data["Meta Data"];
 		const keys = Object.keys(timeSeries);
@@ -40,7 +39,9 @@ export default class StocksChart extends React.Component {
 		return (
 			<View style={styles.graphContainer}>
 				<View>
-					<Text style={[styles.graphLabel, {paddingTop: 10}]}>{this.state.symbol}</Text>
+					<Text style={[styles.graphLabel, { paddingTop: 10 }]}>
+						{this.state.symbol}
+					</Text>
 					<Text style={styles.stats}>High : {this.state.high}</Text>
 					<Text style={styles.stats}>Low : {this.state.low}</Text>
 					<Text style={styles.stats}>Open : {this.state.open}</Text>
