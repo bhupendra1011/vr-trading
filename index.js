@@ -12,13 +12,42 @@ export default class vr_trading extends React.Component {
 	state = {
 		activeStock: "",
 		accountBalance: 10000,
-    	activeStockData: null
+    	activeStockData: null,
+		activeStockInfo: {
+			symbol: "",
+			open: "",
+			close: "",
+			high: "",
+			low: "",
+			volume: ""
+		}
 	};
 	defaultQuantity = 10;
 
-	handleStockSelection(state) {
-		this.setState(state);
+	handleStockSelection(nextState) {
+		this.setState({ 
+			activeStock: nextState.activeStock,
+			activeStockData: nextState.activeStockData, 
+			activeStockInfo: this.getActiveStockInfo(nextState)
+		});
 	}
+
+	getActiveStockInfo(nextState) {
+		let data = nextState.activeStockData;
+		// if (!data) return;
+		const timeSeries = data["Time Series (1min)"];
+		const metaData = data["Meta Data"];
+		const keys = Object.keys(timeSeries);
+		const latestData = timeSeries[keys[1]];
+		return {
+			symbol: metaData["2. Symbol"],
+			open: Number(latestData["1. open"]).toFixed(2),
+			close: Number(latestData["4. close"]).toFixed(2),
+			high: Number(latestData["2. high"]).toFixed(2),
+			low: Number(latestData["3. low"]).toFixed(2),
+			volume: Number(latestData["5. volume"]).toFixed(2)
+		};
+	} 
 
 	getStockPrice () {
 		const series = this.state.activeStockData["Time Series (1min)"];
@@ -37,11 +66,12 @@ export default class vr_trading extends React.Component {
 	}
 
 	render() {
-
+		console.log('Render called');
+		console.log(this.state.activeStock);
 		let stockInfo;
 		if(this.state.activeStock) {
 			stockInfo = <View>
-							<StocksChart data={this.state.activeStockData} />
+							<StocksChart data={this.state.activeStockInfo} />
 							<View style={styles.buttonBox}>
 								<Text style={styles.bigFont}>Quantity: {this.defaultQuantity}</Text>
 								<VrButton onClick={this.buyStock.bind(this)}>
@@ -138,7 +168,7 @@ const styles = StyleSheet.create({
 		backgroundColor: 'blue'
 	},
 	buttonSell: {
-		backgroundColor: 'grey'
+		backgroundColor: 'red'
 	},
 	alignCenter: {
 		display: "flex",

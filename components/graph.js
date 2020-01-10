@@ -19,22 +19,43 @@ export default class StocksChart extends React.Component {
 		volume: ""
 	};
 
-	componentDidMount() {
-		let data = this.props.data;
-		if (!data) return;
-		const timeSeries = data["Time Series (1min)"];
-		const metaData = data["Meta Data"];
-		const keys = Object.keys(timeSeries);
-		const latestData = timeSeries[keys[0]];
-		this.setState({
-			symbol: metaData["2. Symbol"],
-			open: Number(latestData["1. open"]).toFixed(2),
-			close: Number(latestData["4. close"]).toFixed(2),
-			high: Number(latestData["2. high"]).toFixed(2),
-			low: Number(latestData["3. low"]).toFixed(2),
-			volume: Number(latestData["5. volume"]).toFixed(2)
-		});
+	componentWillReceiveProps(nextProps) {
+		// console.log(nextProps);
+		// let data = nextProps.data;
+		// if (!data) return;
+		// const timeSeries = data["Time Series (1min)"];
+		// const metaData = data["Meta Data"];
+		// const keys = Object.keys(timeSeries);
+		// const latestData = timeSeries[keys[0]];
+		// this.setState({
+		// 	symbol: metaData["2. Symbol"],
+		// 	open: Number(latestData["1. open"]).toFixed(2),
+		// 	close: Number(latestData["4. close"]).toFixed(2),
+		// 	high: Number(latestData["2. high"]).toFixed(2),
+		// 	low: Number(latestData["3. low"]).toFixed(2),
+		// 	volume: Number(latestData["5. volume"]).toFixed(2)
+		// });
+		this.setState(nextProps.data);
 	}
+
+	componentDidMount() {
+		// let data = this.props.data;
+		// if (!data) return;
+		// const timeSeries = data["Time Series (1min)"];
+		// const metaData = data["Meta Data"];
+		// const keys = Object.keys(timeSeries);
+		// const latestData = timeSeries[keys[0]];
+		// this.setState({
+		// 	symbol: metaData["2. Symbol"],
+		// 	open: Number(latestData["1. open"]).toFixed(2),
+		// 	close: Number(latestData["4. close"]).toFixed(2),
+		// 	high: Number(latestData["2. high"]).toFixed(2),
+		// 	low: Number(latestData["3. low"]).toFixed(2),
+		// 	volume: Number(latestData["5. volume"]).toFixed(2)
+		// });
+		this.setState(this.props.data);
+	}
+
 	render() {
 		return (
 			<View style={styles.graphContainer}>
